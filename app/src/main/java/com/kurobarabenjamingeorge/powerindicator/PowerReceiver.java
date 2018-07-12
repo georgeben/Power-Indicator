@@ -15,14 +15,22 @@ public class PowerReceiver extends BroadcastReceiver {
         Log.i("Intent action", intentAction);
 
         String message = null;
+        int value = 0;
 
         switch(intentAction){
             case Intent.ACTION_POWER_CONNECTED:
                 message = "Power connected";
+                value = 1;
                 break;
             case Intent.ACTION_POWER_DISCONNECTED:
+                value = 0;
                 message = "Power disconnected";
+                break;
 
+        }
+
+        if(MainActivity.getInstance() != null){
+            MainActivity.getInstance().updateIndicator(value);
         }
 
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();

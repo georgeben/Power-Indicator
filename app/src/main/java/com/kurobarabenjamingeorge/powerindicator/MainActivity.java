@@ -2,13 +2,47 @@ package com.kurobarabenjamingeorge.powerindicator;
 
 import android.content.ComponentName;
 import android.content.pm.PackageManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private PackageManager mPackageManager;
     private ComponentName mComponentName;
+
+    private static MainActivity instance;
+
+    private ImageView chargingIndicatorImageView;
+    private TextView chargingIndicatorTextView;
+
+//    public static int isCharging ;
+
+    public static MainActivity getInstance(){
+        return instance;
+    }
+
+    public void updateIndicator(final int value){
+        MainActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(value == 0){
+                    chargingIndicatorImageView.setImageResource(R.drawable.ic_battery_60_black_24dp);
+                    chargingIndicatorTextView.setText("Charger disconnected");
+                    chargingIndicatorTextView.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.red));
+
+                }else{
+                    chargingIndicatorImageView.setImageResource(R.drawable.ic_battery_charging_full_black_24dp);
+                    chargingIndicatorTextView.setText("Charging");
+                    chargingIndicatorTextView.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.green));
+
+                }
+            }
+        });
+    }
+
 
     @Override
     protected void onStart() {
@@ -34,5 +68,11 @@ public class MainActivity extends AppCompatActivity {
 
         mPackageManager = getPackageManager();
         mComponentName = new ComponentName(this, PowerReceiver.class);
+
+        chargingIndicatorImageView = (ImageView) findViewById(R.id.chargingIndicator);
+        chargingIndicatorTextView  = (TextView) findViewById(R.id.chargingIndicatorTextView);
+
+        instance = this;
     }
+
 }
