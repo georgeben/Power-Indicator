@@ -10,21 +10,18 @@ public class PowerReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //The action that has occured
+        //The action that has occurred
         String intentAction = intent.getAction();
-        Log.i("Intent action", intentAction);
 
-        String message = null;
         int value = 0;
 
         switch(intentAction){
+            //Checking which action occurred
             case Intent.ACTION_POWER_CONNECTED:
-                message = "Power connected";
                 value = 1;
                 break;
             case Intent.ACTION_POWER_DISCONNECTED:
                 value = 0;
-                message = "Power disconnected";
                 break;
 
         }
@@ -32,7 +29,5 @@ public class PowerReceiver extends BroadcastReceiver {
         if(MainActivity.getInstance() != null){
             MainActivity.getInstance().updateIndicator(value);
         }
-
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 }

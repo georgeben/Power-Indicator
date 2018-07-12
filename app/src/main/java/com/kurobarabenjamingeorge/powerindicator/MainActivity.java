@@ -13,12 +13,12 @@ public class MainActivity extends AppCompatActivity {
     private PackageManager mPackageManager;
     private ComponentName mComponentName;
 
+    //This holds a reference to the main activity
     private static MainActivity instance;
 
     private ImageView chargingIndicatorImageView;
     private TextView chargingIndicatorTextView;
 
-//    public static int isCharging ;
 
     public static MainActivity getInstance(){
         return instance;
@@ -28,14 +28,15 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                //Value returned from Power receiver => 0 = not charging, 1 = charging
                 if(value == 0){
                     chargingIndicatorImageView.setImageResource(R.drawable.ic_battery_60_black_24dp);
-                    chargingIndicatorTextView.setText("Charger disconnected");
+                    chargingIndicatorTextView.setText(R.string.not_charging);
                     chargingIndicatorTextView.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.red));
 
                 }else{
                     chargingIndicatorImageView.setImageResource(R.drawable.ic_battery_charging_full_black_24dp);
-                    chargingIndicatorTextView.setText("Charging");
+                    chargingIndicatorTextView.setText(R.string.charging);
                     chargingIndicatorTextView.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.green));
 
                 }

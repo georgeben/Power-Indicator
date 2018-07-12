@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="battery_img_width">200dp</dimen>
+    <dimen name="battery_img_height">300dp</dimen>
+    <dimen name="indicator_textsize">21sp</dimen>
+    <dimen name="indicator_text_margin_bottom">20dp</dimen>
+</resources>
